@@ -1,6 +1,17 @@
 require_relative 'zimtw/orchestra'
 
 module Zimtw
+
+  @@known_orchestras = []
+
+  def self.register_orchestra orc
+    @@known_orchestras = @@known_orchestras.push orc
+  end
+
+  def self.known_orchestras
+    @@known_orchestras
+  end
+
   module MakeSingleton
     def self.included base
       base.class_exec do
