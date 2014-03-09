@@ -36,7 +36,7 @@ class CLITestCase < ZiwTestCase
     ]
     cli = ZQ::CLI.new([], opts)
     cli.invoke(:work)
-    assert get_repo.all.length == 0
+    assert_equal 0, get_repo.all.length
   end
 end
 
