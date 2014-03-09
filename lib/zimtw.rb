@@ -1,7 +1,7 @@
 require 'zimtw/orchestra'
 require 'zimtw/cli'
 
-module Zimtw
+module ZQ
 
   @@known_orchestras = []
 

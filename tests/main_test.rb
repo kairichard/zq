@@ -41,6 +41,6 @@ class OrchestraTestCase < ZiwTestCase
   end
 
   def test_module_knows_all_orchestras
-    assert Zimtw.known_orchestras == [TestOrchestra]
+    assert ZQ.known_orchestras == [TestOrchestra]
   end
 end

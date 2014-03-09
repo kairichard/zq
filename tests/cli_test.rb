@@ -5,7 +5,7 @@ class CLITestCase < ZiwTestCase
   def test_cli_orchestrates_and_exhausts
     value = '{"key": "value"}'
     get_data_source.insert value
-    cli = Zimtw::CLI.new([], [])
+    cli = ZQ::CLI.new([], [])
     cli.invoke(:work)
       assert_equal 1, get_repo.all.length
   end
@@ -17,7 +17,7 @@ class CLITestCase < ZiwTestCase
     stub.proxy(TestOrchestra).new do |obj|
       mock(obj).process_forever
     end
-    cli = Zimtw::CLI.new([], opts)
+    cli = ZQ::CLI.new([], opts)
     cli.invoke(:work)
   end
 
@@ -27,7 +27,7 @@ class CLITestCase < ZiwTestCase
     opts = [
       "-o", "NotHere"
     ]
-    cli = Zimtw::CLI.new([], opts)
+    cli = ZQ::CLI.new([], opts)
     cli.invoke(:work)
     assert get_repo.all.length == 0
   end

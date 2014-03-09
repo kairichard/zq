@@ -1,7 +1,7 @@
-module Zimtw
+module ZQ
   module Orchestra
     def self.included base
-      ::Zimtw.register_orchestra base
+      ::ZQ.register_orchestra base
       base.extend ClassMethods
     end
 

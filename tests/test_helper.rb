@@ -33,15 +33,15 @@ class TestDigester
 end
 
 class TestRepo
-  include Zimtw::Repository
+  include ZQ::Repository
 end
 
 class TestSource
-  include Zimtw::DataSource
+  include ZQ::DataSource
 end
 
 class TestOrchestra
-  include Zimtw::Orchestra
+  include ZQ::Orchestra
   source TestSource.instance
   repository TestRepo.instance
   digester TestDigester.new

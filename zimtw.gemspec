@@ -3,7 +3,7 @@ require "zimtw/version"
 
 Gem::Specification.new do |s|
   s.name        = 'zimtw'
-  s.version     = Zimtw::VERSION
+  s.version     = ZQ::VERSION
   s.summary     = "Pull stuff from source then digest and create inside a repository"
   s.authors     = ["Kai Richard Koenig"]
   s.email       = 'kai@kairichardkoenig.de'
