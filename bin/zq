@@ -3,5 +3,5 @@ require 'pathname'
 LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 $:.unshift(LIB_PATH)
 
-require 'zimtw/cli'
+require 'zq/cli'
 ZQ::CLI.start(ARGV)

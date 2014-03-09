@@ -4,7 +4,7 @@ require 'ostruct'
 require 'json'
 require 'pry'
 
-require 'zimtw'
+require 'zq'
 
 class ZiwTestCase < Minitest::Test
 

@@ -1,5 +1,5 @@
-require 'zimtw/orchestra'
-require 'zimtw/cli'
+require 'zq/orchestra'
+require 'zq/cli'
 
 module ZQ
 
