@@ -45,6 +45,7 @@ class OrchestraTestCase < ZiwTestCase
     assert get_repo.all.is_a?(Array)
     assert get_repo.all.length == 1
   end
+
   def test_module_knows_all_orchestras
     assert Zimtw.known_orchestras == [TestOrchestra]
   end
