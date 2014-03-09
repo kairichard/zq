@@ -38,6 +38,9 @@ module Zimtw
     def read_next
       self.contents.shift
     end
+    def clear
+      self.contents = []
+    end
   end
 
   module Repository

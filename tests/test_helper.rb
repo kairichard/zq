@@ -2,6 +2,7 @@ require 'test/unit'
 require 'ostruct'
 require 'json'
 require 'pry'
+
 require 'zimtw'
 
 class ZiwTestCase < Test::Unit::TestCase
@@ -19,6 +20,7 @@ class ZiwTestCase < Test::Unit::TestCase
 
   def teardown
     get_repo.clear
+    get_data_source.clear
   end
 end
 
