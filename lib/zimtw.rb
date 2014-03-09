@@ -1,5 +1,5 @@
-require_relative 'zimtw/orchestra'
-require_relative 'zimtw/cli'
+require 'zimtw/orchestra'
+require 'zimtw/cli'
 
 module Zimtw
 

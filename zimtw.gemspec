@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.email       = 'kai@kairichardkoenig.de'
   s.files       = Dir.glob("lib/**/*.rb")
   s.homepage    = 'https://github.com/kairichard/zimtw'
+  s.executables << 'zq'
   s.add_runtime_dependency 'thor'
   s.license = 'MIT'
   s.required_ruby_version = '>= 1.8.6'
