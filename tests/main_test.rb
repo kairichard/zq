@@ -18,30 +18,34 @@ class DataSourceTestCase < ZiwTestCase
 end
 
 class OrchestraTestCase < ZiwTestCase
-  def build_orchestra
-    data_source = get_data_source
-    value = '{"key": "value"}'
-    data_source.insert value
-    @o = TestOrchestra.new
-  end
-
+  include OrchestraTestCaseMixin
   def test_orchestra_process_data
-    build_orchestra
-    @o.process_until_exhausted
+    orc = create_orchestra "FooBar" do
+      source TestSource.instance
+      repository TestRepo.instance
+      digester TestDigester.new
+    end
+    orc.new.process_until_exhausted
     assert_instance_of Array, get_repo.all
     assert_equal 1, get_repo.all.length
   end
 
-  def test_module_knows_all_orchestras
-    assert_equal [TestOrchestra], ZQ.known_orchestras
-  end
-
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
-    klass = Object.const_set("AnotherOrc",Class.new)
-    klass.class_exec do
-      include ZQ::Orchestra
-    end
-    assert ZQ.known_orchestras == [TestOrchestra]
+    create_orchestra "Foo1"
+    assert_equal [], ZQ.known_orchestras
+  end
+
+  def test_orchestras_can_be_registered_later
+    ZQ.stop_autoregister_orchestra!
+    klass = create_orchestra "Foo2"
+    ZQ.register_orchestra klass
+    assert_equal [klass], ZQ.known_orchestras
+  end
+
+  def test_orchestras_can_be_deregistered
+    klass = create_orchestra "Foo3"
+    ZQ.deregister_orchestra klass
+    assert_empty ZQ.known_orchestras
   end
 end

@@ -2,8 +2,16 @@ module ZQ
   @@known_orchestras = []
   @@autoregister = true
 
+  def self.reset!
+    @@known_orchestras = []
+  end
+
   def self.register_orchestra orc
     @@known_orchestras = @@known_orchestras.push orc
+  end
+
+  def self.deregister_orchestra orc
+    @@known_orchestras.reject! {|o| o == orc}
   end
 
   def self.known_orchestras

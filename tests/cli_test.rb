@@ -1,20 +1,29 @@
 require 'test_helper'
 
 class CLITestCase < ZiwTestCase
+  include OrchestraTestCaseMixin
 
   def test_cli_orchestrates_and_exhausts
-    value = '{"key": "value"}'
-    get_data_source.insert value
+    create_orchestra "FooBarCli1" do
+      source TestSource.instance
+      repository TestRepo.instance
+      digester TestDigester.new
+    end
     cli = ZQ::CLI.new([], [])
     cli.invoke(:work)
       assert_equal 1, get_repo.all.length
   end
 
   def test_cli_can_run_forever
+    orc = create_orchestra "FooBarCli2" do
+      source TestSource.instance
+      repository TestRepo.instance
+      digester TestDigester.new
+    end
     opts = [
       "-d", true
     ]
-    stub.proxy(TestOrchestra).new do |obj|
+    stub.proxy(orc).new do |obj|
       mock(obj).process_forever
     end
     cli = ZQ::CLI.new([], opts)
@@ -22,8 +31,6 @@ class CLITestCase < ZiwTestCase
   end
 
   def test_cli_orchestrates_with_only_one_orchestra
-    value = '{"key": "value"}'
-    get_data_source.insert value
     opts = [
       "-o", "NotHere"
     ]

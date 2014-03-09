@@ -40,10 +40,29 @@ class TestSource
   include ZQ::DataSource
 end
 
-class TestOrchestra
-  include ZQ::Orchestra
-  source TestSource.instance
-  repository TestRepo.instance
-  digester TestDigester.new
+module OrchestraTestCaseMixin
+  def setup
+    super()
+    ZQ.autoregister_orchestra!
+    data_source = get_data_source
+    value = '{"key": "value"}'
+    data_source.insert value
+  end
+
+  def teardown
+    super
+    ZQ.reset!
+  end
+
+  def create_orchestra name, &block
+    klass = Object.const_set(name, Class.new)
+    klass.class_exec do
+      include ZQ::Orchestra
+    end
+    klass.class_exec(&block) if block_given?
+    klass
+  end
 end
+
+
 
