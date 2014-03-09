@@ -9,8 +9,7 @@ group :development  do
 end
 
 group :test do
-  gem 'rspec'
-  gem 'cucumber'
-  gem 'aruba'
+  gem 'minitest'
+  gem 'rr', require: false
 end
 
