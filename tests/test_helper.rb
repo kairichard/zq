@@ -1,3 +1,9 @@
+require 'test/unit'
+require 'ostruct'
+require 'json'
+require 'pry'
+require 'zimtw'
+
 class ZiwTestCase < Test::Unit::TestCase
   def get_digester
     TestDigester.new

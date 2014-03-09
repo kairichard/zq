@@ -1,9 +1,3 @@
-require 'test/unit'
-require 'ostruct'
-require 'json'
-require 'pry'
-require 'zimtw'
-
 require_relative 'test_helper'
 
 class DigestTestCase < ZiwTestCase
