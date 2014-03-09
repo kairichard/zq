@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require 'test_helper'
 
 class DigestTestCase < ZiwTestCase
   def test_digester_takes_json_returns_some_sort_of_representation
