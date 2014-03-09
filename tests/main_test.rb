@@ -1,13 +1,5 @@
 require 'test_helper'
 
-class DigestTestCase < ZiwTestCase
-  def test_digester_takes_json_returns_some_sort_of_representation
-    digester = get_digester
-    entity = digester.digest '{"key": "value"}'
-    refute entity.nil?
-  end
-end
-
 class DataSourceTestCase < ZiwTestCase
   def test_can_read_data_from_source
     data_source = get_data_source
@@ -36,11 +28,20 @@ class OrchestraTestCase < ZiwTestCase
   def test_orchestra_process_data
     build_orchestra
     @o.process_until_exhausted
-    assert get_repo.all.is_a?(Array)
-    assert get_repo.all.length == 1
+    assert_instance_of Array, get_repo.all
+    assert_equal 1, get_repo.all.length
   end
 
   def test_module_knows_all_orchestras
+    assert_equal [TestOrchestra], ZQ.known_orchestras
+  end
+
+  def test_orchestras_do_not_autoregister
+    ZQ.stop_autoregister_orchestra!
+    klass = Object.const_set("AnotherOrc",Class.new)
+    klass.class_exec do
+      include ZQ::Orchestra
+    end
     assert ZQ.known_orchestras == [TestOrchestra]
   end
 end
