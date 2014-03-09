@@ -33,19 +33,4 @@ module ZQ
     end
   end
 
-  module Repository
-    include MakeSingleton
-    def initialize
-      @contents = []
-    end
-    def all
-      @contents
-    end
-    def create e
-      @contents << e
-    end
-    def clear
-      @contents = []
-    end
-  end
 end

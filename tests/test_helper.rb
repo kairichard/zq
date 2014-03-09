@@ -26,23 +26,41 @@ class ZiwTestCase < Minitest::Test
   end
 end
 
-class TestDigester
-  def digest data
-    OpenStruct.new JSON.parse(data)
-  end
-end
-
-class TestRepo
-  include ZQ::Repository
-end
-
 class TestSource
   include ZQ::DataSource
 end
 
+class TestRepo
+  include Singleton
+  def initialize
+    @contents = []
+  end
+  def all
+    @contents
+  end
+  def create e
+    @contents << e
+  end
+  def clear
+    @contents = []
+  end
+end
+
+class TestJsonComposer
+  def compose raw_data, composite=nil
+    OpenStruct.new JSON.parse(raw_data)
+  end
+end
+
+class TestPersitanceComposer
+  def compose raw_data, composite=nil
+    TestRepo.instance.create composite
+  end
+end
+
 module OrchestraTestCaseMixin
   def setup
-    super()
+    super
     ZQ.autoregister_orchestra!
     data_source = get_data_source
     value = '{"key": "value"}'

@@ -40,16 +40,19 @@ module ZQ
       def source source
         @source = source
       end
-      def repository repository
-        @repository = repository
+      def compose_with composers
+        composers.each do |c|
+          add_composer c
+        end
       end
-      def digester digester
-        @digester = digester
+      def add_composer composer
+        @composers ||= []
+        @composers = @composers.push composer
       end
     end
 
     def initialize
-      @source, @repository, @digester = [:@source, :@repository, :@digester].map do |m|
+      @source, @repository, @digester, @composers = [:@source, :@repository, :@digester, :@composers].map do |m|
         self.class.instance_variable_get(m)
       end
     end
@@ -64,7 +67,10 @@ module ZQ
       loop do
         item = @source.read_next
         break if item.nil?
-        @repository.create @digester.digest(item)
+        composite = nil
+        @composers.each do |c|
+          composite = c.new.compose item, composite
+        end
       end
     end
   end

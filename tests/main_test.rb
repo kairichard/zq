@@ -22,8 +22,10 @@ class OrchestraTestCase < ZiwTestCase
   def test_orchestra_process_data
     orc = create_orchestra "FooBar" do
       source TestSource.instance
-      repository TestRepo.instance
-      digester TestDigester.new
+      compose_with [
+        TestJsonComposer,
+        TestPersitanceComposer,
+      ]
     end
     orc.new.process_until_exhausted
     assert_instance_of Array, get_repo.all
