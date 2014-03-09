@@ -1,11 +1,13 @@
-require 'test/unit'
+require 'minitest/autorun'
+require 'rr'
 require 'ostruct'
 require 'json'
 require 'pry'
 
 require 'zimtw'
 
-class ZiwTestCase < Test::Unit::TestCase
+class ZiwTestCase < Minitest::Test
+
   def get_digester
     TestDigester.new
   end
