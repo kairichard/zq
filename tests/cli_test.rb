@@ -3,19 +3,6 @@ require 'test_helper'
 class CLITestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
-  def test_cli_orchestrates_and_exhausts
-    create_orchestra "FooBarCli1" do
-      source TestSource.instance
-      compose_with [
-        TestJsonComposer.new,
-        TestPersitanceComposer.new,
-      ]
-    end
-    cli = ZQ::CLI.new([], [])
-    cli.invoke(:work)
-    assert_equal 1, get_repo.all.length
-  end
-
   def test_cli_can_run_forever
     orc = create_orchestra "FooBarCli2"
     opts = [

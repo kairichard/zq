@@ -1,23 +1,8 @@
 require 'test_helper'
 
-class SourceTestCase < ZiwTestCase
-  def test_can_read_data_from_source
-    data_source = get_data_source
-    value = '{"key": "value"}'
-    data_source.insert value
-    assert data_source.read_next == value
-  end
-  def test_source_can_exhauste
-    data_source = get_data_source
-    value = '{"key": "value"}'
-    data_source.insert value
-    assert data_source.read_next == value
-    assert data_source.read_next.nil?
-  end
-end
-
 class OrchestraTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
+
   def test_orchestra_process_data
     orc = create_orchestra "FooBar" do
       source TestSource.instance
@@ -30,6 +15,24 @@ class OrchestraTestCase < ZiwTestCase
     assert_instance_of Array, get_repo.all
     assert_equal 1, get_repo.all.length
   end
+end
+
+class OrchestraSourceAPITestCase < ZiwTestCase
+  include OrchestraTestCaseMixin
+
+  def test_orchestra_source
+    @source = Minitest::Mock.new
+    @source.expect :read_next, nil
+    orc = create_orchestra "SourceFooBar"
+    orc.source @source
+    orc.new.process_until_exhausted
+    @source.verify
+  end
+end
+
+
+class OrchestraRegistrationTestCase < ZiwTestCase
+  include OrchestraTestCaseMixin
 
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
