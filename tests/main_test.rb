@@ -30,6 +30,20 @@ class OrchestraSourceAPITestCase < ZiwTestCase
   end
 end
 
+class OrchestraComposeApiTestCase < ZiwTestCase
+  include OrchestraTestCaseMixin
+
+  def test_orchestra_source
+    @composer = Minitest::Mock.new
+    @composer.expect :compose, nil, ["{\"key\": \"value\"}", nil]
+    orc = create_orchestra "ComposeFooBar"
+    orc.source TestSource.instance
+    orc.add_composer @composer
+    orc.new.process_until_exhausted
+    @composer.verify
+  end
+end
+
 
 class OrchestraRegistrationTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
