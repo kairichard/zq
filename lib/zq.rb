@@ -2,7 +2,6 @@ require 'zq/orchestra'
 require 'zq/cli'
 
 module ZQ
-
   module MakeSingleton
     def self.included base
       base.class_exec do
@@ -32,5 +31,4 @@ module ZQ
       self.contents = []
     end
   end
-
 end

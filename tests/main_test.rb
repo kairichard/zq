@@ -1,13 +1,12 @@
 require 'test_helper'
 
-class DataSourceTestCase < ZiwTestCase
+class SourceTestCase < ZiwTestCase
   def test_can_read_data_from_source
     data_source = get_data_source
     value = '{"key": "value"}'
     data_source.insert value
     assert data_source.read_next == value
   end
-
   def test_source_can_exhauste
     data_source = get_data_source
     value = '{"key": "value"}'

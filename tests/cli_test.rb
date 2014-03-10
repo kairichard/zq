@@ -10,7 +10,7 @@ class CLITestCase < ZiwTestCase
         TestJsonComposer,
         TestPersitanceComposer,
       ]
-   end
+    end
     cli = ZQ::CLI.new([], [])
     cli.invoke(:work)
     assert_equal 1, get_repo.all.length
@@ -34,7 +34,7 @@ class CLITestCase < ZiwTestCase
     cli.invoke(:work)
   end
 
-  def test_cli_orchestrates_with_only_one_orchestra
+  def test_cli_orchestrates_with_only_one_orchestra_which_is_not_available
     opts = [
       "-o", "NotHere"
     ]

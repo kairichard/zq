@@ -2,7 +2,6 @@ require 'thor'
 
 module ZQ
   class CLI < Thor
-
     desc "work", "Start orchestrating."
     option :only,    :aliases => ["-o"], :type => :string
     option :forever, :aliases => ["-d"], :type => :boolean, :default => false
