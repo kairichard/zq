@@ -7,8 +7,8 @@ class CLITestCase < ZiwTestCase
     create_orchestra "FooBarCli1" do
       source TestSource.instance
       compose_with [
-        TestJsonComposer,
-        TestPersitanceComposer,
+        TestJsonComposer.new,
+        TestPersitanceComposer.new,
       ]
     end
     cli = ZQ::CLI.new([], [])
@@ -17,13 +17,7 @@ class CLITestCase < ZiwTestCase
   end
 
   def test_cli_can_run_forever
-    orc = create_orchestra "FooBarCli2" do
-      source TestSource.instance
-      compose_with [
-        TestJsonComposer,
-        TestPersitanceComposer,
-      ]
-    end
+    orc = create_orchestra "FooBarCli2"
     opts = [
       "-d", true
     ]

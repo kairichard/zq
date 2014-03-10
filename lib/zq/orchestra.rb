@@ -69,7 +69,7 @@ module ZQ
         break if item.nil?
         composite = nil
         @composers.each do |c|
-          composite = c.new.compose item, composite
+          composite = c.compose item, composite
         end
       end
     end

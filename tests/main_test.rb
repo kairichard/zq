@@ -22,8 +22,8 @@ class OrchestraTestCase < ZiwTestCase
     orc = create_orchestra "FooBar" do
       source TestSource.instance
       compose_with [
-        TestJsonComposer,
-        TestPersitanceComposer,
+        TestJsonComposer.new,
+        TestPersitanceComposer.new,
       ]
     end
     orc.new.process_until_exhausted
