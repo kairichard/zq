@@ -12,6 +12,6 @@ group :test do
   gem 'minitest'
   gem 'cucumber'
   gem 'aruba'
-  gem 'rr', require: false
+  gem 'rr', :require => false
 end
 
