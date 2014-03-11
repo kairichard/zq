@@ -33,7 +33,7 @@ end
 class OrchestraComposeApiTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
-  def test_orchestra_source
+  def test_orchestra_single_composer
     @composer = Minitest::Mock.new
     @composer.expect :compose, nil, ["{\"key\": \"value\"}", nil]
     orc = create_orchestra "ComposeFooBar"
@@ -41,6 +41,21 @@ class OrchestraComposeApiTestCase < ZiwTestCase
     orc.add_composer @composer
     orc.new.process_until_exhausted
     @composer.verify
+  end
+
+  def test_orchestra_composer_chain
+    @composer1 = Minitest::Mock.new
+    @composer2 = Minitest::Mock.new
+
+    @composer1.expect :compose, :return_value, ["{\"key\": \"value\"}", nil]
+    @composer2.expect :compose, nil, ["{\"key\": \"value\"}", :return_value]
+    orc = create_orchestra "ComposeChainFooBar"
+    orc.source TestSource.instance
+    orc.add_composer @composer1
+    orc.add_composer @composer2
+    orc.new.process_until_exhausted
+    @composer1.verify
+    @composer2.verify
   end
 end
 
