@@ -20,7 +20,9 @@ class CLITestCase < ZiwTestCase
       "-o", "NotHere"
     ]
     cli = ZQ::CLI.new([], opts)
-    cli.invoke(:work)
+    assert_raises Exception do
+      cli.invoke(:work)
+    end
     assert_equal 0, get_repo.all.length
   end
 end

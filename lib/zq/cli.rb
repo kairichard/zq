@@ -10,6 +10,7 @@ module ZQ
       orchestras = ZQ.live_orchestras
       if orchestras.empty?
         puts "No Orchestras found"
+        raise Exception
       end
       if options[:only]
         orchestras = orchestras.select{|o| o.to_s == options[:only]}
