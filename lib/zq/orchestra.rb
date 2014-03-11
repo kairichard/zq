@@ -1,21 +1,29 @@
 module ZQ
-  @@known_orchestras = []
+  @@live_orchestras = []
+  @@_all_known_orchestras = []
   @@autoregister = true
 
   def self.reset!
-    @@known_orchestras = []
+    @@live_orchestras = []
+  end
+
+  def self.autoregister_orchestra orc
+    if self.autoregister_orchestra?
+      self.register_orchestra orc
+    end
+    @@_all_known_orchestras = @@_all_known_orchestras.push orc
   end
 
   def self.register_orchestra orc
-    @@known_orchestras = @@known_orchestras.push orc
+    @@live_orchestras = @@live_orchestras.push orc
   end
 
   def self.deregister_orchestra orc
-    @@known_orchestras.reject! {|o| o == orc}
+    @@live_orchestras.reject! {|o| o == orc}
   end
 
-  def self.known_orchestras
-    @@known_orchestras
+  def self.live_orchestras
+    @@live_orchestras
   end
 
   def self.stop_autoregister_orchestra!
@@ -32,7 +40,7 @@ module ZQ
 
   module Orchestra
     def self.included base
-      ::ZQ.register_orchestra(base) if ::ZQ.autoregister_orchestra?
+      ::ZQ.autoregister_orchestra(base)
       base.extend ClassMethods
     end
 

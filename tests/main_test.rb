@@ -51,19 +51,19 @@ class OrchestraRegistrationTestCase < ZiwTestCase
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
     create_orchestra "Foo1"
-    assert_equal [], ZQ.known_orchestras
+    assert_equal [], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_registered_later
     ZQ.stop_autoregister_orchestra!
     klass = create_orchestra "Foo2"
     ZQ.register_orchestra klass
-    assert_equal [klass], ZQ.known_orchestras
+    assert_equal [klass], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_deregistered
     klass = create_orchestra "Foo3"
     ZQ.deregister_orchestra klass
-    assert_empty ZQ.known_orchestras
+    assert_empty ZQ.live_orchestras
   end
 end

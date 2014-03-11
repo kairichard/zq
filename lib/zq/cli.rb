@@ -6,7 +6,7 @@ module ZQ
     option :only,    :aliases => ["-o"], :type => :string
     option :forever, :aliases => ["-d"], :type => :boolean, :default => false
     def work
-      orchestras = ZQ.known_orchestras
+      orchestras = ZQ.live_orchestras
       if options[:only]
         orchestras = orchestras.select{|o| o.to_s == options[:only]}
       end
