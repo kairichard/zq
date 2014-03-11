@@ -14,3 +14,5 @@ Rake::TestTask.new do |t|
   t.libs << "tests"
   t.verbose = true
 end
+
+task :default => [:test, :features]

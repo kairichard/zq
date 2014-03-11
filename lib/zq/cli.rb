@@ -1,4 +1,5 @@
 require 'thor'
+require 'zq/orchestra'
 
 module ZQ
   class CLI < Thor
@@ -7,6 +8,9 @@ module ZQ
     option :forever, :aliases => ["-d"], :type => :boolean, :default => false
     def work
       orchestras = ZQ.live_orchestras
+      if orchestras.empty?
+        puts "No Orchestras found"
+      end
       if options[:only]
         orchestras = orchestras.select{|o| o.to_s == options[:only]}
       end
