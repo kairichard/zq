@@ -45,6 +45,9 @@ module ZQ
     end
 
     module ClassMethods
+      def desc desc
+        @desc = desc
+      end
       def source source
         @source = source
       end
@@ -57,6 +60,11 @@ module ZQ
         @composers ||= []
         @composers = @composers.push composer
       end
+
+      def to_s
+        super + " - " + @desc
+      end
+
     end
 
     def initialize
