@@ -20,7 +20,7 @@ class CLITestCase < ZiwTestCase
       "-o", "NotHere"
     ]
     cli = ZQ::CLI.new([], opts)
-    assert_raises Exception do
+    assert_raises NoOrchestrasFound do
       cli.invoke(:work)
     end
     assert_equal 0, get_repo.all.length

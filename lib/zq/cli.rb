@@ -1,17 +1,21 @@
 require 'thor'
 require 'zq/orchestra'
+require 'zq/exceptions'
 
 module ZQ
   class CLI < Thor
+    desc "list", "List available orchestras."
+    def list
+      orchestras = ZQ.live_orchestras
+      raise NoOrchestrasFound if orchestras.empty?
+    end
+
     desc "work", "Start orchestrating."
     option :only,    :aliases => ["-o"], :type => :string
     option :forever, :aliases => ["-d"], :type => :boolean, :default => false
     def work
       orchestras = ZQ.live_orchestras
-      if orchestras.empty?
-        puts "No Orchestras found"
-        raise Exception
-      end
+      raise NoOrchestrasFound if orchestras.empty?
       if options[:only]
         orchestras = orchestras.select{|o| o.to_s == options[:only]}
       end

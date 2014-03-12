@@ -1,0 +1,1 @@
+class NoOrchestrasFound < RuntimeError; end
