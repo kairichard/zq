@@ -68,7 +68,7 @@ module ZQ
     end
 
     def initialize
-      @source, @repository, @digester, @composers = [:@source, :@repository, :@digester, :@composers].map do |m|
+      @source, @composers = [:@source, :@composers].map do |m|
         self.class.instance_variable_get(m)
       end
     end
