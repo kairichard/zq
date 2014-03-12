@@ -4,7 +4,7 @@ class CLITestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_cli_can_run_forever
-    orc = create_orchestra "FooBarCli2"
+    orc = create_orchestra
     opts = [
       "-d", true
     ]

@@ -4,7 +4,7 @@ class OrchestraTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_process_data
-    orc = create_orchestra "FooBar" do
+    orc = create_orchestra do
       source TestSource.instance
       compose_with [
         TestJsonComposer.new,
@@ -23,7 +23,7 @@ class OrchestraSourceAPITestCase < ZiwTestCase
   def test_orchestra_source
     @source = Minitest::Mock.new
     @source.expect :read_next, nil
-    orc = create_orchestra "SourceFooBar"
+    orc = create_orchestra
     orc.source @source
     orc.new.process_until_exhausted
     @source.verify
@@ -36,7 +36,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   def test_orchestra_single_composer
     @composer = Minitest::Mock.new
     @composer.expect :compose, nil, ["{\"key\": \"value\"}", nil]
-    orc = create_orchestra "ComposeFooBar"
+    orc = create_orchestra
     orc.source TestSource.instance
     orc.add_composer @composer
     orc.new.process_until_exhausted
@@ -49,7 +49,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
 
     @composer1.expect :compose, :return_value, ["{\"key\": \"value\"}", nil]
     @composer2.expect :compose, nil, ["{\"key\": \"value\"}", :return_value]
-    orc = create_orchestra "ComposeChainFooBar"
+    orc = create_orchestra
     orc.source TestSource.instance
     orc.add_composer @composer1
     orc.add_composer @composer2
@@ -65,19 +65,19 @@ class OrchestraRegistrationTestCase < ZiwTestCase
 
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
-    create_orchestra "Foo1"
+    create_orchestra
     assert_equal [], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_registered_later
     ZQ.stop_autoregister_orchestra!
-    klass = create_orchestra "Foo2"
+    klass = create_orchestra
     ZQ.register_orchestra klass
     assert_equal [klass], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_deregistered
-    klass = create_orchestra "Foo3"
+    klass = create_orchestra
     ZQ.deregister_orchestra klass
     assert_empty ZQ.live_orchestras
   end
