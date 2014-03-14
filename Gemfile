@@ -6,6 +6,7 @@ group :development  do
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-stack_explorer'
+  gem 'rubocop'
 end
 
 group :test do
