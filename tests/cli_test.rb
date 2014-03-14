@@ -5,6 +5,8 @@ class CLITestCase < ZiwTestCase
 
   def test_cli_can_run_forever
     orc = create_orchestra
+    orc.source(Object.new)
+    orc.add_composer(Object.new)
     opts = [
       "-d", true
     ]

@@ -25,6 +25,7 @@ class OrchestraSourceAPITestCase < ZiwTestCase
     @source.expect :read_next, nil
     orc = create_orchestra
     orc.source @source
+    orc.add_composer(Object.new)
     orc.new.process_until_exhausted
     @source.verify
   end
@@ -32,6 +33,21 @@ end
 
 class OrchestraComposeApiTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
+
+  def test_orchestra_bare_bones
+    orc = create_orchestra
+    orc.source = {}
+    assert_raises NoComposerException do
+      orc.new.process_until_exhausted
+    end
+  end
+
+  def test_orchestra_bare_bones
+    orc = create_orchestra
+    assert_raises NoSourceException do
+      orc.new.process_until_exhausted
+    end
+  end
 
   def test_orchestra_single_composer
     @composer = Minitest::Mock.new
