@@ -7,19 +7,17 @@ module ZQ
     @@live_orchestras = []
   end
 
-  def self.autoregister_orchestra orc
-    if self.autoregister_orchestra?
-      self.register_orchestra orc
-    end
-    @@_all_known_orchestras = @@_all_known_orchestras.push orc
+  def self.autoregister_orchestra(orc)
+    register_orchestra(orc) if autoregister_orchestra?
+    @@_all_known_orchestras = @@_all_known_orchestras.push(orc)
   end
 
-  def self.register_orchestra orc
+  def self.register_orchestra(orc)
     @@live_orchestras = @@live_orchestras.push orc
   end
 
-  def self.deregister_orchestra orc
-    @@live_orchestras.reject! {|o| o == orc}
+  def self.deregister_orchestra(orc)
+    @@live_orchestras.reject! { |o| o == orc }
   end
 
   def self.live_orchestras
@@ -39,32 +37,34 @@ module ZQ
   end
 
   module Orchestra
-    def self.included base
+    def self.included(base)
       ::ZQ.autoregister_orchestra(base)
       base.extend ClassMethods
     end
 
     module ClassMethods
-      def desc desc
+      def desc(desc)
         @desc = desc
       end
-      def source source
+
+      def source(source)
         @source = source
       end
-      def compose_with composers
+
+      def compose_with(*composers)
         composers.each do |c|
           add_composer c
         end
       end
-      def add_composer composer
+
+      def add_composer(composer)
         @composers ||= []
         @composers = @composers.push composer
       end
 
       def to_s
-        super + " - " + @desc
+        super + ' - ' + @desc
       end
-
     end
 
     def initialize

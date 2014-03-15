@@ -3,9 +3,9 @@ require 'zq/cli'
 
 module ZQ
   module MakeSingleton
-    def self.included base
+    def self.included(base)
       base.class_exec do
-        def self.included base
+        def self.included(base)
           base.class_exec do
             include Singleton
           end
@@ -19,16 +19,19 @@ module ZQ
     attr_accessor :contents
 
     def initialize
-      self.contents = []
+      @contents = []
     end
-    def insert data
-      self.contents << data
+
+    def insert(data)
+      @contents << data
     end
+
     def read_next
-      self.contents.shift
+      @contents.shift
     end
+
     def clear
-      self.contents = []
+      @contents = []
     end
   end
 end

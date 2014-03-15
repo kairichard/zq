@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 require 'pathname'
-LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
-$:.unshift(LIB_PATH)
+LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join('lib').to_s
+$LOAD_PATH.unshift(LIB_PATH)
 
 require 'zq/cli'
 
 begin
   ZQ::CLI.start(ARGV)
 rescue NoOrchestrasFound
-  abort "No Orchestras found"
+  abort 'No Orchestras found'
 end

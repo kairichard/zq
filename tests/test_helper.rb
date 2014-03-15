@@ -6,7 +6,6 @@ require 'json'
 require 'zq'
 
 class ZiwTestCase < Minitest::Test
-
   def get_digester
     TestDigester.new
   end
@@ -34,25 +33,28 @@ class TestRepo
   def initialize
     @contents = []
   end
+
   def all
     @contents
   end
-  def create e
+
+  def create(e)
     @contents << e
   end
+
   def clear
     @contents = []
   end
 end
 
 class TestJsonComposer
-  def compose raw_data, composite=nil
+  def compose(raw_data, composite = nil)
     OpenStruct.new JSON.parse(raw_data)
   end
 end
 
 class TestPersitanceComposer
-  def compose raw_data, composite=nil
+  def compose(raw_data, composite = nil)
     TestRepo.instance.create composite
   end
 end
@@ -71,8 +73,8 @@ module OrchestraTestCaseMixin
     ZQ.reset!
   end
 
-  def create_orchestra name=nil, &block
-    name = name || "Anonym" + SecureRandom.uuid().gsub('-', '')
+  def create_orchestra(name = nil, &block)
+    name = name || 'Anonym' + SecureRandom.uuid.gsub('-', '')
     klass = Object.const_set(name, Class.new)
     klass.class_exec do
       include ZQ::Orchestra

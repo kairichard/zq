@@ -6,10 +6,7 @@ class OrchestraTestCase < ZiwTestCase
   def test_orchestra_process_data
     orc = create_orchestra do
       source TestSource.instance
-      compose_with [
-        TestJsonComposer.new,
-        TestPersitanceComposer.new,
-      ]
+      compose_with TestJsonComposer.new, TestPersitanceComposer.new
     end
     orc.new.process_until_exhausted
     assert_instance_of Array, get_repo.all
@@ -67,14 +64,12 @@ class OrchestraComposeApiTestCase < ZiwTestCase
     @composer2.expect :compose, nil, ["{\"key\": \"value\"}", :return_value]
     orc = create_orchestra
     orc.source TestSource.instance
-    orc.add_composer @composer1
-    orc.add_composer @composer2
+    orc.compose_with @composer1, @composer2
     orc.new.process_until_exhausted
     @composer1.verify
     @composer2.verify
   end
 end
-
 
 class OrchestraRegistrationTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
