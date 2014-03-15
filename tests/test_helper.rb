@@ -1,7 +1,7 @@
-require 'minitest/autorun'
 require 'rr'
-require 'ostruct'
 require 'json'
+require 'ostruct'
+require 'minitest/autorun'
 
 require 'zq'
 
