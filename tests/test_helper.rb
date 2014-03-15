@@ -74,8 +74,7 @@ module OrchestraTestCaseMixin
   end
 
   def create_orchestra(name = nil, &block)
-    name = name || 'Anonym' + SecureRandom.uuid.gsub('-', '')
-    klass = Object.const_set(name, Class.new)
+    klass = Class.new
     klass.class_exec do
       include ZQ::Orchestra
     end
