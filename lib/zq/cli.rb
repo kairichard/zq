@@ -22,7 +22,7 @@ module ZQ
     option :forever, aliases: ['-d'], type: :boolean, default: false
     def play(orchestra_name)
       orchestra = ZQ.find_live_orchestra(orchestra_name)
-      fail NoOrchestrasFound unless orchestra
+      fail OrchestraDoesNotExist unless orchestra
       run(orchestra, options[:forever])
     end
 

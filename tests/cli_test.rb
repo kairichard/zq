@@ -19,7 +19,7 @@ class CLITestCase < ZiwTestCase
   def test_cli_play_orchestra_which_is_not_available
     opts = %w{NotHere}
     cli = ZQ::CLI.new([], opts)
-    assert_raises NoOrchestrasFound do
+    assert_raises OrchestraDoesNotExist do
       cli.invoke(:play)
     end
   end
