@@ -18,31 +18,23 @@ module ZQ
       end
     end
 
-    desc 'work', 'Start orchestrating.'
-    option :only,    aliases: ['-o'], type: :string
+    desc 'work ORCHESTRA_NAME', 'Start orchestrating.'
     option :forever, aliases: ['-d'], type: :boolean, default: false
-    def work
-      orchestras = ZQ.live_orchestras
-      fail NoOrchestrasFound if orchestras.empty?
-      if options[:only]
-        orchestras = orchestras.select { |o| o.to_s == options[:only] }
-      end
-      run(orchestras, options)
+    def play(orchestra_name)
+      orchestra = ZQ.find_live_orchestra(orchestra_name)
+      fail NoOrchestrasFound unless orchestra
+      run(orchestra, options[:forever])
     end
 
     private
 
-    def run(orchestras, options)
-      orchestras.map do |o|
-        Thread.new do
-          orchestra = o.new
-          if options[:forever]
-            orchestra.process_forever
-          else
-            orchestra.process_until_exhausted
-          end
-        end
-      end.each(&:join)
+    def run(orchestra_cls, forever = false)
+      orchestra = orchestra_cls.new
+      if options[:forever]
+        orchestra.process_forever
+      else
+        orchestra.process_until_exhausted
+      end
     end
   end
 end
