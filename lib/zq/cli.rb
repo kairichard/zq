@@ -1,5 +1,6 @@
 require 'thor'
 require 'zq/orchestra'
+require 'zq/orchestras/echo'
 require 'zq/exceptions'
 
 module ZQ

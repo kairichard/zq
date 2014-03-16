@@ -1,8 +1,8 @@
 Feature: Listing available orchestras
-  Scenario: Empty current dir
+  Scenario: With out a require file list system orchestras
     Given I run `zq list`
-    Then the output should contain "No Orchestras found"
-    And the exit status should be 1
+    Then the output should contain "Echo - prints contents from stdin"
+    And the exit status should be 0
 
   Scenario: Orchestras in current dir
     Given a file named "test.rb" with:
