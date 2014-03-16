@@ -52,7 +52,9 @@ module ZQ
   module Orchestra
     def self.included(base)
       ::ZQ.autoregister_orchestra(base)
+      base_name = base.name
       base.extend ClassMethods
+      base.name(base_name)
     end
 
     module ClassMethods

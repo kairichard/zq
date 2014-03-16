@@ -4,7 +4,7 @@ require 'zq/exceptions'
 
 module ZQ
   class CLI < Thor
-    class_option :files, aliases: ['-r'], type: :array, default: []
+    class_option :file, aliases: ['-r'], type: :string
 
     desc 'list', 'List available orchestras.'
     def list
@@ -16,7 +16,7 @@ module ZQ
       end
     end
 
-    desc 'work ORCHESTRA_NAME', 'Start orchestrating.'
+    desc 'play ORCHESTRA_NAME', 'Start orchestrating.'
     option :forever, aliases: ['-d'], type: :boolean, default: false
     def play(orchestra_name)
       setup_env(options)
@@ -28,10 +28,9 @@ module ZQ
     private
 
     def setup_env(options)
+      return unless options[:file]
       cwd = Pathname.pwd
-      options[:files].each do |r|
-        require cwd + r
-      end
+      require cwd + options[:file]
     end
 
     def run(orchestra_cls, forever = false)
