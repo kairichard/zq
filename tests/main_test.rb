@@ -47,27 +47,22 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   end
 
   def test_orchestra_single_composer
-    @composer = Minitest::Mock.new
-    @composer.expect :compose, nil, ["{\"key\": \"value\"}", nil]
+    composer = mock!.compose("{\"key\": \"value\"}", nil).subject
+
     orc = ZQ.create_orchestra
     orc.source TestSource.instance
-    orc.add_composer @composer
+    orc.add_composer composer
     orc.new.process_until_exhausted
-    @composer.verify
   end
 
   def test_orchestra_composer_chain
-    @composer1 = Minitest::Mock.new
-    @composer2 = Minitest::Mock.new
+    composer1 = mock!.compose("{\"key\": \"value\"}", nil).returns(:value).subject
+    composer2 = mock!.compose("{\"key\": \"value\"}", :value).subject
 
-    @composer1.expect :compose, :return_value, ["{\"key\": \"value\"}", nil]
-    @composer2.expect :compose, nil, ["{\"key\": \"value\"}", :return_value]
     orc = ZQ.create_orchestra
     orc.source TestSource.instance
-    orc.compose_with @composer1, @composer2
+    orc.compose_with composer1, composer2
     orc.new.process_until_exhausted
-    @composer1.verify
-    @composer2.verify
   end
 end
 
