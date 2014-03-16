@@ -1,4 +1,5 @@
 require 'zq/orchestra'
+require 'zq/sources/io'
 require 'zq/cli'
 
 module ZQ
