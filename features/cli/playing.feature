@@ -6,7 +6,7 @@ Feature: The command line interface `play` command
     """
     require 'zq/orchestra'
     require 'zq/sources/io'
-    require 'zq/composer/echo'
+    require 'zq/composers/echo'
 
     class TestOrchestra
       include ZQ::Orchestra
