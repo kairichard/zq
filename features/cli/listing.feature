@@ -13,7 +13,7 @@ Feature: Listing available orchestras
       desc "does nothing"
     end
     """
-    When I run `zq list -r ./test.rb`
+    When I run `zq list -r test.rb`
     Then the output should contain "TestOrchestra - does nothing"
     And the exit status should be 0
 

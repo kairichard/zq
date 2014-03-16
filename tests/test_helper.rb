@@ -83,6 +83,3 @@ module OrchestraTestCaseMixin
     klass
   end
 end
-
-
-
