@@ -18,13 +18,10 @@ class OrchestraSourceAPITestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_source
-    @source = Minitest::Mock.new
-    @source.expect :read_next, nil
     orc = ZQ.create_orchestra
-    orc.source @source
+    orc.source mock!.read_next.returns(nil).subject
     orc.add_composer(Object.new)
     orc.new.process_until_exhausted
-    @source.verify
   end
 end
 
