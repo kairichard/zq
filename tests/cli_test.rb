@@ -4,7 +4,7 @@ class CLITestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_cli_can_run_forever
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     orc.source(Object.new)
     orc.add_composer(Object.new)
     orc.name('test')

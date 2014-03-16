@@ -3,6 +3,15 @@ module ZQ
   @@_all_known_orchestras = []
   @@autoregister = true
 
+  def self.create_orchestra(&block)
+    klass = Class.new
+    klass.class_exec do
+      include ZQ::Orchestra
+    end
+    klass.class_exec(&block) if block_given?
+    klass
+  end
+
   def self.reset!
     @@live_orchestras = []
   end

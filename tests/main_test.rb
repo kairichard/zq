@@ -4,7 +4,7 @@ class OrchestraTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_process_data
-    orc = create_orchestra do
+    orc = ZQ.create_orchestra do
       source TestSource.instance
       compose_with TestJsonComposer.new, TestPersitanceComposer.new
     end
@@ -20,7 +20,7 @@ class OrchestraSourceAPITestCase < ZiwTestCase
   def test_orchestra_source
     @source = Minitest::Mock.new
     @source.expect :read_next, nil
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     orc.source @source
     orc.add_composer(Object.new)
     orc.new.process_until_exhausted
@@ -32,7 +32,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_bare_bones
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     orc.source = {}
     assert_raises NoComposerException do
       orc.new.process_until_exhausted
@@ -40,7 +40,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   end
 
   def test_orchestra_bare_bones
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     assert_raises NoSourceException do
       orc.new.process_until_exhausted
     end
@@ -49,7 +49,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   def test_orchestra_single_composer
     @composer = Minitest::Mock.new
     @composer.expect :compose, nil, ["{\"key\": \"value\"}", nil]
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     orc.source TestSource.instance
     orc.add_composer @composer
     orc.new.process_until_exhausted
@@ -62,7 +62,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
 
     @composer1.expect :compose, :return_value, ["{\"key\": \"value\"}", nil]
     @composer2.expect :compose, nil, ["{\"key\": \"value\"}", :return_value]
-    orc = create_orchestra
+    orc = ZQ.create_orchestra
     orc.source TestSource.instance
     orc.compose_with @composer1, @composer2
     orc.new.process_until_exhausted
@@ -76,19 +76,19 @@ class OrchestraRegistrationTestCase < ZiwTestCase
 
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
-    create_orchestra
+    ZQ.create_orchestra
     assert_equal [], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_registered_later
     ZQ.stop_autoregister_orchestra!
-    klass = create_orchestra
+    klass = ZQ.create_orchestra
     ZQ.register_orchestra klass
     assert_equal [klass], ZQ.live_orchestras
   end
 
   def test_orchestras_can_be_deregistered
-    klass = create_orchestra
+    klass = ZQ.create_orchestra
     ZQ.deregister_orchestra klass
     assert_empty ZQ.live_orchestras
   end

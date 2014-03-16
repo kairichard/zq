@@ -73,13 +73,4 @@ module OrchestraTestCaseMixin
     super
     ZQ.reset!
   end
-
-  def create_orchestra(name = nil, &block)
-    klass = Class.new
-    klass.class_exec do
-      include ZQ::Orchestra
-    end
-    klass.class_exec(&block) if block_given?
-    klass
-  end
 end
