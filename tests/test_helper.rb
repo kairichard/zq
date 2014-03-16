@@ -2,7 +2,7 @@ require 'json'
 require 'ostruct'
 require 'minitest/autorun'
 require 'rr'
-require 'pry'
+require 'pry' if ENV['debug']
 
 require 'zq'
 
