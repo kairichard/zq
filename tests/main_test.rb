@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class OrchestraTestCase < ZiwTestCase
+class OrchestraTestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_process_data
@@ -14,7 +14,7 @@ class OrchestraTestCase < ZiwTestCase
   end
 end
 
-class OrchestraSourceAPITestCase < ZiwTestCase
+class OrchestraSourceAPITestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_source
@@ -25,7 +25,7 @@ class OrchestraSourceAPITestCase < ZiwTestCase
   end
 end
 
-class OrchestraComposeApiTestCase < ZiwTestCase
+class OrchestraComposeApiTestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestra_bare_bones
@@ -63,7 +63,7 @@ class OrchestraComposeApiTestCase < ZiwTestCase
   end
 end
 
-class OrchestraRegistrationTestCase < ZiwTestCase
+class OrchestraRegistrationTestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
   def test_orchestras_do_not_autoregister

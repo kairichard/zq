@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CLITestCase < ZiwTestCase
+class CLITestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
   def test_cli_can_run_forever

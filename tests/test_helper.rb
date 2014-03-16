@@ -6,7 +6,7 @@ require 'pry' if ENV['debug']
 
 require 'zq'
 
-class ZiwTestCase < Minitest::Test
+class ZQTestCase < Minitest::Test
   def get_digester
     TestDigester.new
   end
