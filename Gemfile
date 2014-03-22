@@ -15,5 +15,6 @@ group :test do
   gem 'aruba'
   gem 'json'
   gem 'rr', :require => false
+  gem 'redis'
 end
 
