@@ -19,6 +19,15 @@ class ZQTestCase < Minitest::Test
     TestSource.instance
   end
 
+  def assert_source_read_sequence(expected_items, source)
+    seq = []
+    item =
+    while item = source.read_next
+      seq << item
+    end
+    assert_equal expected_items, seq + [nil]
+  end
+
   def teardown
     get_repo.clear
     get_data_source.clear

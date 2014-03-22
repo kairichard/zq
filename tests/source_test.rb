@@ -7,9 +7,7 @@ class STDINTestCase < ZQTestCase
     file.puts 'line2'
     file.rewind
     source = ZQ::Sources::IOSource.new file
-    assert_equal 'line1', source.read_next
-    assert_equal 'line2', source.read_next
-    assert_equal nil, source.read_next
+    assert_source_read_sequence ['line1', 'line2', nil], source
   end
 end
 
