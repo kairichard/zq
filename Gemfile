@@ -14,7 +14,7 @@ group :test do
   gem 'cucumber'
   gem 'aruba'
   gem 'json'
-  gem 'rr', :require => false
+  gem 'rspec'
   gem 'redis'
 end
 

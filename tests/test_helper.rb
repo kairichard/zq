@@ -1,12 +1,44 @@
 require 'json'
 require 'ostruct'
 require 'minitest/autorun'
-require 'rr'
+require 'rspec/mocks'
 require 'pry' if ENV['DEBUG']
 
 require 'zq'
 
+class Object
+  # remove Minitest's stub method so RSpec's version on BasicObject will work
+  if self.method_defined?(:stub) && !defined?(removed_minitest)
+    remove_method :stub
+    removed_minitest = true
+  end
+end
+
+module Minitest
+  module RSpecMocks
+    include RSpec::Mocks::ExampleMethods unless ::RSpec::Mocks::Version::STRING < "3"
+    def before_setup
+      if ::RSpec::Mocks::Version::STRING < "3"
+        ::RSpec::Mocks.setup(self)
+      else
+        ::RSpec::Mocks.setup
+      end
+      super
+    end
+
+    def after_teardown
+      begin
+        ::RSpec::Mocks.verify
+      ensure
+        ::RSpec::Mocks.teardown
+      end
+      super
+    end
+  end
+end
+
 class ZQTestCase < Minitest::Test
+  include MiniTest::RSpecMocks
   def get_digester
     TestDigester.new
   end
@@ -54,6 +86,12 @@ class TestRepo
 
   def clear
     @contents = []
+  end
+end
+
+class EchoComposer
+  def compose(raw_data, composite = nil)
+    raw_data
   end
 end
 

@@ -19,11 +19,12 @@ module ZQ
 
     desc 'play ORCHESTRA_NAME', 'Start orchestrating.'
     option :forever, aliases: ['-d'], type: :boolean, default: false
+    option :interval, aliases: ['-i'], type: :numeric, default: 0
     def play(orchestra_name)
       setup_env(options)
       orchestra = ZQ.find_live_orchestra(orchestra_name)
       fail OrchestraDoesNotExist unless orchestra
-      run(orchestra, options[:forever])
+      run(orchestra, options[:forever], options[:interval])
     end
 
     private
@@ -34,10 +35,12 @@ module ZQ
       require cwd + options[:file]
     end
 
-    def run(orchestra_cls, forever = false)
+    def run(orchestra_cls, forever, interval)
       orchestra = orchestra_cls.new
       if forever
-        orchestra.process_forever
+        orchestra.process_forever(interval)
+      elsif interval
+        orchestra.process_with_interval(interval)
       else
         orchestra.process_until_exhausted
       end

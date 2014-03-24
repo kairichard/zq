@@ -98,10 +98,15 @@ module ZQ
       fail NoComposerException unless @composers
     end
 
-    def process_forever
+    def process_forever(interval=1)
       loop do
-        process_until_exhausted
+        process_with_interval(interval)
       end
+    end
+
+    def process_with_interval(interval)
+        process_until_exhausted
+        Kernel.sleep(interval)
     end
 
     def process_until_exhausted

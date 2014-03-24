@@ -19,7 +19,9 @@ class OrchestraSourceAPITestCase < ZQTestCase
 
   def test_orchestra_source
     orc = ZQ.create_orchestra
-    orc.source mock!.read_next.returns(nil).subject
+    source = double("source")
+    expect(source).to receive(:read_next).and_return(nil)
+    orc.source source
     orc.add_composer(Object.new)
     orc.new.process_until_exhausted
   end
@@ -44,7 +46,8 @@ class OrchestraComposeApiTestCase < ZQTestCase
   end
 
   def test_orchestra_single_composer
-    composer = mock!.compose("{\"key\": \"value\"}", nil).subject
+    composer = double("composer")
+    expect(composer).to receive(:compose).with("{\"key\": \"value\"}", nil).and_return(nil)
 
     orc = ZQ.create_orchestra
     orc.source TestSource.instance
@@ -53,8 +56,10 @@ class OrchestraComposeApiTestCase < ZQTestCase
   end
 
   def test_orchestra_composer_chain
-    composer1 = mock!.compose("{\"key\": \"value\"}", nil).returns(:value).subject
-    composer2 = mock!.compose("{\"key\": \"value\"}", :value).subject
+    composer1 = double("composer1")
+    expect(composer1).to receive(:compose).with("{\"key\": \"value\"}", nil).and_return(:value)
+    composer2 = double("composer2")
+    expect(composer2).to receive(:compose).with("{\"key\": \"value\"}", :value).and_return(nil)
 
     orc = ZQ.create_orchestra
     orc.source TestSource.instance
