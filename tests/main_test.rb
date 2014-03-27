@@ -1,19 +1,5 @@
 require 'test_helper'
 
-class OrchestraTestCase < ZQTestCase
-  include OrchestraTestCaseMixin
-
-  def test_orchestra_process_data
-    orc = ZQ.create_orchestra do
-      source TestSource.instance
-      compose_with TestJsonComposer.new, TestPersitanceComposer.new
-    end
-    orc.new.process_until_exhausted
-    assert_instance_of Array, get_repo.all
-    assert_equal 1, get_repo.all.length
-  end
-end
-
 class OrchestraSourceAPITestCase < ZQTestCase
   include OrchestraTestCaseMixin
 

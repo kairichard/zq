@@ -43,10 +43,6 @@ class ZQTestCase < Minitest::Test
     TestDigester.new
   end
 
-  def get_repo
-    TestRepo.instance
-  end
-
   def get_data_source
     TestSource.instance
   end
@@ -61,32 +57,12 @@ class ZQTestCase < Minitest::Test
   end
 
   def teardown
-    get_repo.clear
     get_data_source.clear
   end
 end
 
 class TestSource
   include ZQ::DataSource
-end
-
-class TestRepo
-  include Singleton
-  def initialize
-    @contents = []
-  end
-
-  def all
-    @contents
-  end
-
-  def create(e)
-    @contents << e
-  end
-
-  def clear
-    @contents = []
-  end
 end
 
 class EchoComposer
@@ -98,12 +74,6 @@ end
 class TestJsonComposer
   def compose(raw_data, composite = nil)
     OpenStruct.new JSON.parse(raw_data)
-  end
-end
-
-class TestPersitanceComposer
-  def compose(raw_data, composite = nil)
-    TestRepo.instance.create composite
   end
 end
 
