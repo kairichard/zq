@@ -34,7 +34,7 @@ module ZQ
   end
 
   def self.find_live_orchestra(orc_name)
-    live_orchestras.detect { |o| o.name?(orc_name) }
+    live_orchestras.detect { |o| o.name == orc_name  }
   end
 
   def self.stop_autoregister_orchestra!
@@ -52,9 +52,7 @@ module ZQ
   module Orchestra
     def self.included(base)
       ::ZQ.autoregister_orchestra(base)
-      base_name = base.name
       base.extend ClassMethods
-      base.name(base_name)
     end
 
     module ClassMethods
@@ -64,14 +62,6 @@ module ZQ
 
       def source(source)
         @source = source
-      end
-
-      def name(name)
-        @name = name
-      end
-
-      def name?(name)
-        @name == name
       end
 
       def compose_with(*composers)

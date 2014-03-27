@@ -61,9 +61,4 @@ module OrchestraTestCaseMixin
     expect(source).to receive(:read_next).exactly(contents.length).times.and_return(*contents)
     source
   end
-
-  def teardown
-    super
-    ZQ.reset!
-  end
 end

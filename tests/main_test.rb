@@ -57,20 +57,20 @@ class OrchestraRegistrationTestCase < ZQTestCase
 
   def test_orchestras_do_not_autoregister
     ZQ.stop_autoregister_orchestra!
-    ZQ.create_orchestra
-    assert_equal [], ZQ.live_orchestras
+    klass = ZQ.create_orchestra
+    refute_includes(ZQ.live_orchestras, klass)
   end
 
   def test_orchestras_can_be_registered_later
     ZQ.stop_autoregister_orchestra!
     klass = ZQ.create_orchestra
-    ZQ.register_orchestra klass
-    assert_equal [klass], ZQ.live_orchestras
+    ZQ.register_orchestra(klass)
+    assert_includes(ZQ.live_orchestras, klass)
   end
 
   def test_orchestras_can_be_deregistered
     klass = ZQ.create_orchestra
     ZQ.deregister_orchestra klass
-    assert_empty ZQ.live_orchestras
+    refute_includes(ZQ.live_orchestras, klass)
   end
 end
