@@ -65,12 +65,6 @@ class TestSource
   include ZQ::DataSource
 end
 
-class EchoComposer
-  def compose(raw_data, composite = nil)
-    raw_data
-  end
-end
-
 class TestJsonComposer
   def compose(raw_data, composite = nil)
     OpenStruct.new JSON.parse(raw_data)

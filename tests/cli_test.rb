@@ -21,7 +21,7 @@ class CLITestCase < ZQTestCase
     expect(Kernel).to receive(:sleep).with(0.1)
     orc = ZQ.create_orchestra
     orc.source(source)
-    orc.add_composer(EchoComposer.new)
+    orc.add_composer(ZQ::Composer::NoOp.new)
     orc.name('test')
     cli = ZQ::CLI.new([], opts)
     cli.invoke(:play)
