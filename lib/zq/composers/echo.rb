@@ -10,8 +10,9 @@ module ZQ
         @file = ioo || $stdout
       end
       def compose(data, composite = nil)
-        @file.puts data
-        return data
+        composite ||= data
+        @file.puts composite
+        return composite
       end
     end
   end

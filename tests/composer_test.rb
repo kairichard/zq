@@ -21,6 +21,14 @@ class EchoComposerTestCase < ZQTestCase
       composer.compose(test_data)
     end
   end
+  def test_compose_favours_composite_data_overraw_data
+    test_data_raw = "a"
+    test_data_composite = "A"
+    file = StringIO.new
+    composer = ZQ::Composer::Echo.new file
+    composer.compose(test_data_raw, test_data_composite)
+    assert_equal(test_data_composite + "\n", file.string)
+  end
   def test_compose_to_file
     test_data = "a"
     file = StringIO.new
