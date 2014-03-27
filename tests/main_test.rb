@@ -33,14 +33,14 @@ class OrchestraComposeApiTestCase < ZQTestCase
   def test_orchestra_bare_bones
     orc = ZQ.create_orchestra
     orc.source = {}
-    assert_raises NoComposerException do
+    assert_raises NoComposerProvided do
       orc.new.process_until_exhausted
     end
   end
 
   def test_orchestra_bare_bones
     orc = ZQ.create_orchestra
-    assert_raises NoSourceException do
+    assert_raises NoSourceProvided do
       orc.new.process_until_exhausted
     end
   end

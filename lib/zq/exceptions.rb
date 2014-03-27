@@ -1,4 +1,4 @@
 class NoOrchestrasFound < RuntimeError; end
 class OrchestraDoesNotExist < RuntimeError; end
-class NoSourceException < RuntimeError; end
-class NoComposerException < RuntimeError; end
+class NoSourceProvided < RuntimeError; end
+class NoComposerProvided < RuntimeError; end

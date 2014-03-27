@@ -94,8 +94,8 @@ module ZQ
       @source, @composers = [:@source, :@composers].map do |m|
         self.class.instance_variable_get(m)
       end
-      fail NoSourceException unless @source
-      fail NoComposerException unless @composers
+      fail NoSourceProvided unless @source
+      fail NoComposerProvided unless @composers
     end
 
     def process_forever(interval=1)
