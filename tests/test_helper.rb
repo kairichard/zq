@@ -39,14 +39,6 @@ end
 
 class ZQTestCase < Minitest::Test
   include MiniTest::RSpecMocks
-  def get_digester
-    TestDigester.new
-  end
-
-  def get_data_source
-    TestSource.instance
-  end
-
   def assert_source_read_sequence(expected_items, source)
     seq = []
     item =
@@ -55,19 +47,11 @@ class ZQTestCase < Minitest::Test
     end
     assert_equal expected_items, seq + [nil]
   end
-
-  def teardown
-    get_data_source.clear
-  end
-end
-
-class TestSource
-  include ZQ::DataSource
 end
 
 class TestJsonComposer
   def compose(raw_data, composite = nil)
-    OpenStruct.new JSON.parse(raw_data)
+    OpenStruct.new(JSON.parse(raw_data))
   end
 end
 
@@ -75,9 +59,13 @@ module OrchestraTestCaseMixin
   def setup
     super
     ZQ.autoregister_orchestra!
-    data_source = get_data_source
-    value = '{"key": "value"}'
-    data_source.insert value
+  end
+
+  def create_source(contents)
+    contents = contents + [nil]
+    source = double("source")
+    expect(source).to receive(:read_next).exactly(contents.length).times.and_return(*contents)
+    source
   end
 
   def teardown
