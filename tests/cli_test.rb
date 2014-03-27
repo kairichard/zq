@@ -16,11 +16,9 @@ class CLITestCase < ZQTestCase
 
   def test_cli_play_orchestra_sleep_after_read
     opts = ['test', '-i', 0.1]
-    source = double("source")
-    expect(source).to receive(:read_next).exactly(3).times.and_return(:value1, :value2, nil)
     expect(Kernel).to receive(:sleep).with(0.1)
     orc = ZQ.create_orchestra
-    orc.source(source)
+    orc.source(create_source([:value, :value]))
     orc.add_composer(ZQ::Composer::NoOp.new)
     orc.name('test')
     cli = ZQ::CLI.new([], opts)
