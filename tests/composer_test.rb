@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class EchoComposerTestCase < ZQTestCase
+  def test_compose_returns_data
+    test_data = "a"
+    composer = ZQ::Composer::Echo.new
+    result = composer.compose(test_data)
+    assert_equal(test_data, result)
+  end
   def test_compose_stdout_implicit
     test_data = "a"
     assert_output test_data + "\n" do

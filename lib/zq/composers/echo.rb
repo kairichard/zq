@@ -11,6 +11,7 @@ module ZQ
       end
       def compose(data, composite = nil)
         @file.puts data
+        return data
       end
     end
   end
