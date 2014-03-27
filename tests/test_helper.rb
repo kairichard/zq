@@ -49,12 +49,6 @@ class ZQTestCase < Minitest::Test
   end
 end
 
-class TestJsonComposer
-  def compose(raw_data, composite = nil)
-    OpenStruct.new(JSON.parse(raw_data))
-  end
-end
-
 module OrchestraTestCaseMixin
   def setup
     super
