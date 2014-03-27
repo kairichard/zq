@@ -1,16 +1,5 @@
 require 'test_helper'
 
-class OrchestraSourceAPITestCase < ZQTestCase
-  include OrchestraTestCaseMixin
-
-  def test_orchestra_source
-    orc = ZQ.create_orchestra
-    orc.source(create_source([]))
-    orc.add_composer(Object.new)
-    orc.new.process_until_exhausted
-  end
-end
-
 class OrchestraComposeApiTestCase < ZQTestCase
   include OrchestraTestCaseMixin
 
