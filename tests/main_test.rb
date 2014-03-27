@@ -5,9 +5,7 @@ class OrchestraSourceAPITestCase < ZQTestCase
 
   def test_orchestra_source
     orc = ZQ.create_orchestra
-    source = double("source")
-    expect(source).to receive(:read_next).and_return(nil)
-    orc.source source
+    orc.source(create_source([]))
     orc.add_composer(Object.new)
     orc.new.process_until_exhausted
   end
