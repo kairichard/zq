@@ -16,9 +16,9 @@ end
 
 module Minitest
   module RSpecMocks
-    include RSpec::Mocks::ExampleMethods unless ::RSpec::Mocks::Version::STRING < "3"
+    include RSpec::Mocks::ExampleMethods unless ::RSpec::Mocks::Version::STRING < '3'
     def before_setup
-      if ::RSpec::Mocks::Version::STRING < "3"
+      if ::RSpec::Mocks::Version::STRING < '3'
         ::RSpec::Mocks.setup(self)
       else
         ::RSpec::Mocks.setup
@@ -41,7 +41,6 @@ class ZQTestCase < Minitest::Test
   include MiniTest::RSpecMocks
   def assert_source_read_sequence(expected_items, source)
     seq = []
-    item =
     while item = source.read_next
       seq << item
     end
@@ -57,7 +56,7 @@ module OrchestraTestCaseMixin
 
   def create_source(contents)
     contents = contents + [nil]
-    source = double("source")
+    source = double('source')
     expect(source).to receive(:read_next).exactly(contents.length).times.and_return(*contents)
     source
   end

@@ -88,7 +88,7 @@ module ZQ
       fail NoComposerProvided unless @composers
     end
 
-    def process_forever(interval=1)
+    def process_forever(interval = 1)
       loop do
         process_with_interval(interval)
       end

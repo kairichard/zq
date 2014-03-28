@@ -19,8 +19,8 @@ class OrchestraComposeApiTestCase < ZQTestCase
   end
 
   def test_orchestra_single_composer
-    composer = double("composer")
-    expect(composer).to receive(:compose).with("test_data", nil).and_return(nil)
+    composer = double('composer')
+    expect(composer).to receive(:compose).with('test_data', nil).and_return(nil)
 
     orc = ZQ.create_orchestra
     orc.source(create_source(['test_data']))
@@ -29,13 +29,13 @@ class OrchestraComposeApiTestCase < ZQTestCase
   end
 
   def test_orchestra_composer_chain
-    composer1 = double("composer1")
+    composer1 = double('composer1')
     expect(composer1).to receive(:compose).with("test_data", nil).and_return(:transformed)
-    composer2 = double("composer2")
+    composer2 = double('composer2')
     expect(composer2).to receive(:compose).with("test_data", :transformed).and_return(nil)
 
     orc = ZQ.create_orchestra
-    orc.source(create_source(["test_data"]))
+    orc.source(create_source(['test_data']))
     orc.compose_with(composer1, composer2)
     orc.new.process_until_exhausted
   end

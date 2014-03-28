@@ -10,7 +10,7 @@ class CLITestCase < ZQTestCase
     Test1.source(Object.new)
     Test1.add_composer(Object.new)
     expect_any_instance_of(Test1).to receive(:process_forever)
-    opts = ['Test1','-d', true]
+    opts = ['Test1', '-d', true]
     ZQ::CLI.new([], opts).invoke(:play)
   end
 
@@ -23,7 +23,7 @@ class CLITestCase < ZQTestCase
   end
 
   def test_cli_play_orchestra_which_is_not_available
-    opts = %w{NotHere}
+    opts = %w(NotHere)
     cli = ZQ::CLI.new([], opts)
     assert_raises OrchestraDoesNotExist do
       cli.invoke(:play)
