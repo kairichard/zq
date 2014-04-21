@@ -5,7 +5,7 @@ require 'zq/exceptions'
 
 module ZQ
   class CLI < Thor
-    class_option :file, aliases: ['-r'], type: :string
+    class_option :file, aliases: ['-r'], type: :string, desc: "Require file to load orchestras from"
 
     desc 'list', 'List available orchestras.'
     def list
@@ -18,8 +18,8 @@ module ZQ
     end
 
     desc 'play ORCHESTRA_NAME', 'Start orchestrating.'
-    option :forever, aliases: ['-d'], type: :boolean, default: false
-    option :interval, aliases: ['-i'], type: :numeric, default: 0
+    option :forever, aliases: ['-d'], type: :boolean, default: false, desc: "Keep running even if source is exhausted"
+    option :interval, aliases: ['-i'], type: :numeric, default: 0, desc: "Play orchestra every N seconds"
     def play(orchestra_name)
       setup_env(options)
       orchestra = ZQ.find_live_orchestra(orchestra_name)
