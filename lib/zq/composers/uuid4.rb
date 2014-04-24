@@ -1,6 +1,5 @@
 module ZQ
   module Composer
-
     class UUID4Hash
       def initialize(key = nil)
         @key = key || 'uuid'
