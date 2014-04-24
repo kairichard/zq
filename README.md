@@ -59,7 +59,7 @@ Start orchestrating.
 Installing
 -------------
 Lace comes as a gem, so given you have ruby installed simply do the following
-``bash
+```bash
 > gem install zq
 ```
 
