@@ -47,6 +47,32 @@ class JsonParseComposerTestCase < ZQTestCase
   end
 end
 
+class RedisPublishComposerTestCase < ZQTestCase
+  def test_compose
+    channel_name = "test_ch"
+    client_pub = Redis.new
+    client_sub = Redis.new
+    @payload = nil
+    t = Thread.new do
+      client_sub.subscribe(channel_name) do |on|
+        on.message do |c, m|
+          @payload = m
+          client_sub.unsubscribe
+        end
+      end
+    end
+    # Wait until the client is subscribed
+    # actullay i want to use the Wire test helper
+    # in the redis-rb lib
+    # https://github.com/redis/redis-rb/blob/eb7a1b5a3df862a158376c46655ffde307b8a518/test/publish_subscribe_test.rb
+    sleep 1
+    composer = ZQ::Composer::RedisPublish.new channel_name, client_pub
+    composer.compose("some_data")
+    t.join
+    assert_equal("some_data", @payload)
+  end
+end
+
 class UUIDjsonComposerTestCase < ZQTestCase
   def test_compose
     composer = ZQ::Composer::UUID4Hash.new
