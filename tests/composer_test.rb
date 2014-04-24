@@ -49,7 +49,7 @@ end
 
 class UUIDjsonComposerTestCase < ZQTestCase
   def test_compose
-    composer = ZQ::Composer::UUID4Json.new
+    composer = ZQ::Composer::UUID4Hash.new
     expect(SecureRandom).to receive(:uuid).and_return("123")
     new_hash = composer.compose(Hash.new)
     assert_equal(new_hash, {"uuid" => "123"})
