@@ -9,7 +9,7 @@ module ZQ
         if composite.kind_of? Hash
           composite[@key] = SecureRandom.uuid
         end
-        return composite
+        composite
       end
     end
   end

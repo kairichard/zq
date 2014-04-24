@@ -8,7 +8,7 @@ module ZQ
       def compose(raw_data, composite = nil)
         composite ||= raw_data
         @client.publish(@channel_name, composite)
-        return composite
+        composite
       end
     end
   end

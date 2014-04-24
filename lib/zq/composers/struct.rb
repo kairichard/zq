@@ -3,7 +3,7 @@ module ZQ
     class JsonParse
       def compose(raw_data, composite = nil)
         composite ||= raw_data
-        return JSON.parse(composite)
+        JSON.parse(composite)
       end
     end
   end
