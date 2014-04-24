@@ -38,3 +38,20 @@ class EchoComposerTestCase < ZQTestCase
   end
 end
 
+class JsonParseComposerTestCase < ZQTestCase
+  def test_compose
+    composer = ZQ::Composer::JsonParse.new
+    json_source = "{\"a\": \"b\"}"
+    new_hash = composer.compose(json_source)
+    assert_equal(new_hash, {"a" => "b"})
+  end
+end
+
+class UUIDjsonComposerTestCase < ZQTestCase
+  def test_compose
+    composer = ZQ::Composer::UUID4Json.new
+    expect(SecureRandom).to receive(:uuid).and_return("123")
+    new_hash = composer.compose(Hash.new)
+    assert_equal(new_hash, {"uuid" => "123"})
+  end
+end
