@@ -1,6 +1,4 @@
-ZQ - Unixy too of building a small unit of work with small components
-[![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/lace) [![Gem Version](https://badge.fury.io/rb/lace.png)](http://badge
-.fury.io/rb/zq)
+ZQ - Unixy building blocks in ruby  [![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/lace) [![Gem Version](https://badge.fury.io/rb/ZQ.png)](https://badge.fury.io/rb/ZQ)
 ========
 This started as a simple proof of concept and looked kinda promising.
 The hole concept is centered around an Orchestra which has a `source` where it can
@@ -61,7 +59,7 @@ Start orchestrating.
 Installing
 -------------
 Lace comes as a gem, so given you have ruby installed simply do the following
-``bash
+```bash
 > gem install zq
 ```
 
