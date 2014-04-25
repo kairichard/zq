@@ -14,8 +14,10 @@ module ZQ
       def compose(raw_data, composite = nil)
         composite ||= raw_data
         @file.puts composite
-        return composite
+        composite
       end
+    end
+    class Tee < Echo
     end
   end
 end
