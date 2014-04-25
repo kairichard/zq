@@ -47,6 +47,16 @@ class JsonParseComposerTestCase < ZQTestCase
   end
 end
 
+class JsonDumpComposerTestCase < ZQTestCase
+  def test_compose
+    composer = ZQ::Composer::JsonDump.new
+    json_source = "{\"a\":\"b\"}"
+    new_hash = composer.compose({"a" => "b"})
+    assert_equal(new_hash, json_source)
+  end
+end
+
+
 class RedisPublishComposerTestCase < ZQTestCase
   def test_compose
     channel_name = "test_ch"
