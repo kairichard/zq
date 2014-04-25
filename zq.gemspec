@@ -2,7 +2,7 @@ $:.unshift File.expand_path("../lib", __FILE__)
 require "zq/version"
 
 Gem::Specification.new do |s|
-  s.name        = 'ZQ'
+  s.name        = 'zq'
   s.version     = ZQ::VERSION
   s.summary     = "Pull stuff from source then digest and create inside a repository"
   s.authors     = ["Kai Richard Koenig"]
