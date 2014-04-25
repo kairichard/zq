@@ -1,6 +1,6 @@
 require 'zq/orchestra'
 require 'zq/sources/io'
-require 'zq/composers/echo'
+require 'zq/composers/io'
 
 class Echo
   include ZQ::Orchestra

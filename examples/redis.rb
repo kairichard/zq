@@ -1,4 +1,4 @@
-equire 'redis'
+require 'redis'
 require 'zq'
 
 CLIENT = Redis.new(db: 1)
