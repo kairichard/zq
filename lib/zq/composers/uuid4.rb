@@ -1,3 +1,4 @@
+require 'securerandom'
 module ZQ
   module Composer
     class UUID4Hash
