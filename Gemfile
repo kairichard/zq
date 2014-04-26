@@ -16,5 +16,6 @@ group :test do
   gem 'json'
   gem 'rspec'
   gem 'redis'
+  gem 'coveralls', require: false
 end
 

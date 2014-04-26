@@ -4,6 +4,9 @@ require 'minitest/autorun'
 require 'rspec/mocks'
 require 'pry' if ENV['DEBUG']
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'zq'
 
 class Object
