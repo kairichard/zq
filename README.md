@@ -1,5 +1,8 @@
-ZQ - Unixy building blocks in ruby  [![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/zq) [![Gem Version](https://badge.fury.io/rb/zq.png)](https://badge.fury.io/rb/zq)
+ZQ - Unixy building blocks in ruby  
 ========
+[![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/zq) [![Gem Version](https://badge.fury.io/rb/zq.png)](https://badge.fury.io/rb/zq) [![Dependency Status](https://gemnasium.com/kairichard/zq.svg)](https://gemnasium.com/kairichard/zq)
+
+
 This started as a simple proof of concept and looked kinda promising.
 The hole concept is centered around an Orchestra which has a `source` where it can
 read chunks of data from. The data is than passed through chainable `composers`.
