@@ -12,10 +12,6 @@ module ZQ
     klass
   end
 
-  def self.reset!
-    @@live_orchestras = []
-  end
-
   def self.autoregister_orchestra(orc)
     register_orchestra(orc) if autoregister_orchestra?
     @@_all_known_orchestras = @@_all_known_orchestras.push(orc)
