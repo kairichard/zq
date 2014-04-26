@@ -15,4 +15,7 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-task :default => [:test, :features]
+require 'coveralls/rake/task'
+Coveralls::RakeTask.new
+
+task :default => [:test, :features, 'coveralls:push']
