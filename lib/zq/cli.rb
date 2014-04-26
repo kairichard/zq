@@ -1,8 +1,3 @@
-require 'thor'
-require 'zq/orchestra'
-require 'zq/orchestras/echo'
-require 'zq/exceptions'
-
 module ZQ
   class CLI < Thor
     class_option :file, aliases: ['-r'], type: :string, desc: "Require file to load orchestras from"

@@ -1,4 +1,3 @@
-require 'json'
 module ZQ
   module Composer
     class JsonParse

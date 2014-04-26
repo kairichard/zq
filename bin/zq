@@ -3,7 +3,7 @@ require 'pathname'
 LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join('lib').to_s
 $LOAD_PATH.unshift(LIB_PATH)
 
-require 'zq/cli'
+require 'zq'
 
 begin
   ZQ::CLI.start(ARGV)
