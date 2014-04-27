@@ -16,7 +16,7 @@ class OrchestraComposeApiTestCase < ZQTestCase
 
     orc = ZQ.create_orchestra
     orc.source(create_source(['test_data']))
-    orc.add_composer composer
+    orc.add_composer(composer)
     orc.new.process_until_exhausted
   end
 
@@ -33,10 +33,8 @@ class OrchestraComposeApiTestCase < ZQTestCase
   def test_orchestra_error_in_composer_is_swallowable
     composer = double('composer')
     expect(composer).to receive(:compose).and_raise(RuntimeError)
-    source = double('source')
-    expect(source).to receive('read_next').and_return('test_data')
     orc = ZQ.create_orchestra
-    orc.source(source)
+    orc.source(create_source(["test_data"]))
     orc.compose_with(composer)
     assert_raises RuntimeError do
       orc.new.process_until_exhausted

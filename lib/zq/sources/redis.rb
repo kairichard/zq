@@ -1,6 +1,7 @@
 module ZQ
   module Sources
     class RedisLPOP
+      include NonTransactional
       def initialize(client, listname)
         @client = client
         @listname = listname

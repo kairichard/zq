@@ -103,10 +103,7 @@ module ZQ
         Kernel.sleep(interval)
     end
 
-    def process_until_exhausted
-      loop do
-        item = @source.read_next
-        break if item.nil?
+    def compose(item)
         composite = nil
         begin
           @composers.each do |c|
@@ -114,6 +111,23 @@ module ZQ
           end
         rescue
           raise unless self.class.ignore_errors?
+        end
+    end
+
+    def process_until_exhausted
+      this = self
+      catch :exhausted do
+        loop do
+          if @source.transactional?
+            @source.transaction do |item|
+              throw :exhausted if item.nil?
+              this.compose(item)
+            end
+          else
+            item = @source.read_next
+            throw :exhausted if item.nil?
+            compose(item)
+          end
         end
       end
     end

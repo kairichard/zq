@@ -1,6 +1,7 @@
 module ZQ
   module Sources
     class IOSource
+      include NonTransactional
       def initialize file
         @file = file
       end

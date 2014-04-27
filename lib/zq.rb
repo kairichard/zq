@@ -15,6 +15,7 @@ require 'zq/composers/json'
 require 'zq/composers/redis'
 require 'zq/composers/io'
 
+require 'zq/sources/mixins'
 require 'zq/sources/io'
 require 'zq/sources/redis'
 
