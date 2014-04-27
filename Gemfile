@@ -7,6 +7,8 @@ group :development  do
   gem 'pry-nav'
   gem 'pry-stack_explorer'
   gem 'rubocop'
+  gem 'guard'
+  gem 'guard-minitest'
 end
 
 group :test do

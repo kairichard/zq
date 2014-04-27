@@ -10,8 +10,8 @@ Cucumber::Rake::Task.new(:features) do |t|
 end
 
 Rake::TestTask.new do |t|
-  t.test_files = FileList["tests/**/*_test.rb"]
-  t.libs << "tests"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.libs << "test"
   t.verbose = true
 end
 

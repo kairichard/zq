@@ -7,6 +7,9 @@ require 'minitest/autorun'
 require 'rspec/mocks'
 require 'pry' if ENV['DEBUG']
 
+LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join('lib').to_s
+$LOAD_PATH.unshift(LIB_PATH)
+
 require 'zq'
 
 class Object
