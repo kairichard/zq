@@ -56,6 +56,14 @@ module ZQ
         @desc = desc
       end
 
+      def ignore_errors!
+        @ignore_errors = true
+      end
+
+      def ignore_errors?
+        @ignore_errors rescue false
+      end
+
       def source(source)
         @source = source
       end
@@ -100,8 +108,12 @@ module ZQ
         item = @source.read_next
         break if item.nil?
         composite = nil
-        @composers.each do |c|
-          composite = c.compose item, composite
+        begin
+          @composers.each do |c|
+            composite = c.compose item, composite
+          end
+        rescue
+          raise unless self.class.ignore_errors?
         end
       end
     end
