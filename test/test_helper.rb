@@ -10,6 +10,7 @@ LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join('lib').to_s
 $LOAD_PATH.unshift(LIB_PATH)
 
 require 'zq'
+require_relative 'support/sources'
 require_relative 'support/minitest'
 require_relative 'support/redis'
 
@@ -22,20 +23,6 @@ class ZQTestCase < Minitest::Test
       seq << item
     end
     assert_equal expected_items, seq + [nil]
-  end
-end
-
-class TestSource
-  def transactional?
-    false
-  end
-
-  def initialize(contents)
-    @contents = contents
-  end
-
-  def read_next
-    @contents.shift
   end
 end
 
