@@ -1,4 +1,4 @@
-ZQ - Unixy building blocks in ruby  
+ZQ - Unixy building blocks in ruby
 ========
 [![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/zq) [![Gem Version](https://badge.fury.io/rb/zq.png)](https://badge.fury.io/rb/zq) [![Dependency Status](https://gemnasium.com/kairichard/zq.svg)](https://gemnasium.com/kairichard/zq) [![Coverage Status](https://coveralls.io/repos/kairichard/zq/badge.png?branch=master)](https://coveralls.io/r/kairichard/zq?branch=master)
 
@@ -61,7 +61,7 @@ Start orchestrating.
 ```
 Installing
 -------------
-Lace comes as a gem, so given you have ruby installed simply do the following
+ZQ comes as a gem, so given you have ruby installed simply do the following
 ```bash
 > gem install zq
 ```
