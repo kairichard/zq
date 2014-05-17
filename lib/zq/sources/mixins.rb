@@ -14,8 +14,9 @@ module ZQ
         item = self.read_next
         begin
           self.commit(item) if yield(item)
-        rescue
+        rescue => error
           self.rollback(item)
+          throw :exhausted
         end
       end
     end

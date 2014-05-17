@@ -34,5 +34,30 @@ module ZQ
     class RedisRPOP < RedisListOP
       method :rpop
     end
+
+    class RedisRPOPLPUSH < RedisListOP
+      include TransactionalMixin
+      method :rpoplpush
+      def args
+        [@listname, progress_list]
+      end
+
+      def progress_list
+        @listname + '_progress'
+      end
+
+      def rollback(item)
+        @client.rpush(@listname, item)
+      end
+
+      def commit(item)
+        @client.lrem(progress_list, 0, item)
+      end
+
+    end
+
+    class RedisTransactionalQueue < RedisRPOPLPUSH
+      method :rpoplpush
+    end
   end
 end
