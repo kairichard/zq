@@ -24,3 +24,15 @@ class RedisLPOPTestCase < ZQTestCase
     assert_source_read_sequence ['line1', 'line2', nil], source
   end
 end
+
+class RedisRPOPTestCase < ZQTestCase
+  include RedisTestCaseMixin
+
+  def test_read_next
+    listname = 'test'
+    client.rpush listname, 'line1'
+    client.rpush listname, 'line2'
+    source = ZQ::Sources::RedisRPOP.new client, listname
+    assert_source_read_sequence ['line2', 'line1', nil], source
+  end
+end
