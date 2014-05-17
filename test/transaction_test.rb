@@ -18,4 +18,15 @@ class SourceTransactionTestCase < ZQTestCase
     orc.compose_with(composer)
     orc.new.process_until_exhausted
   end
+
+  def test_data_is_committed_when_composing_succeeded
+    composer = double('composer')
+    source = TransactionalSource.new(['data'])
+    expect(composer).to receive(:compose)
+    expect(source).to receive(:commit).with('data')
+    orc = ZQ.create_orchestra
+    orc.source(source)
+    orc.compose_with(composer)
+    orc.new.process_until_exhausted
+  end
 end

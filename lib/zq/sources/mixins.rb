@@ -13,7 +13,7 @@ module ZQ
       def transaction(&block)
         item = self.read_next
         begin
-          yield(item)
+          self.commit(item) if yield(item)
         rescue
           self.rollback(item)
         end
