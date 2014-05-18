@@ -86,3 +86,5 @@ changes.
 
 ##TODO
   * add more sources and composers
+  * trap ctrl+c
+  * better error handling for transactions
