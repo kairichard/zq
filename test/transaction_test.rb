@@ -18,6 +18,7 @@ class SourceTransactionTestCase < ZQTestCase
   def test_data_is_put_back_into_source_when_composer_raises_error
     expect(@composer).to receive(:compose).and_raise(RuntimeError)
     expect(@source).to receive(:rollback).with('data')
+    expect(@source).to receive(:handle_error).with('data', kind_of(RuntimeError))
     @orc.source(@source)
     @orc.compose_with(@composer)
     @orc.new.process_until_exhausted
