@@ -28,12 +28,12 @@ module ZQ
 
     class RedisRPOPLPUSH < RedisListOP
       include TransactionalMixin
-      method :rpoplpush
 
       def initialize(client, listname, progress_listname=nil)
         @client = client
         @listname = listname
         @progress_listname = progress_listname
+        self.class.client_method = :rpoplpush
       end
 
       def args
@@ -54,7 +54,6 @@ module ZQ
     end
 
     class RedisTransactionalQueue < RedisRPOPLPUSH
-      method :rpoplpush
     end
 
     class RedisLPOP < RedisListOP

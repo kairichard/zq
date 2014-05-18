@@ -9,4 +9,7 @@ begin
   ZQ::CLI.start(ARGV)
 rescue NoOrchestrasFound
   abort 'No Orchestras found'
+rescue Interrupt
+  puts
+  exit 130
 end
