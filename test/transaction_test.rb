@@ -61,4 +61,18 @@ class RedisTransactionTestCase < ZQTestCase
     @orc.new.process_until_exhausted
     assert_equal source.read_next, nil
   end
+
+  def test_commit_with_custom_progress_listname
+    expect(@composer).to receive(:compose).and_return(true)
+    assert_equal(0,  client.llen("progress"))
+    source = ZQ::Sources::RedisTransactionalQueue.new(client, 'test', 'progress')
+    source.instance_eval do
+      def commit(*args)
+      end
+    end
+    @orc.source(source)
+    @orc.compose_with(@composer)
+    @orc.new.process_until_exhausted
+    assert_equal(1,  client.llen("progress"))
+  end
 end

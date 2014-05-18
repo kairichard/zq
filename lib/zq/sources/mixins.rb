@@ -16,7 +16,7 @@ module ZQ
           self.commit(item) if yield(item)
         rescue => error
           self.rollback(item)
-          throw :exhausted
+          throw :exhausted # or raise ?
         end
       end
     end

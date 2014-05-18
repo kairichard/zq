@@ -24,7 +24,37 @@ module ZQ
       def self.method(client_method)
         self.client_method = client_method
       end
+    end
 
+    class RedisRPOPLPUSH < RedisListOP
+      include TransactionalMixin
+      method :rpoplpush
+
+      def initialize(client, listname, progress_listname=nil)
+        @client = client
+        @listname = listname
+        @progress_listname = progress_listname
+      end
+
+      def args
+        [@listname, progress_listname]
+      end
+
+      def progress_listname
+        @progress_listname || @listname + '_progress'
+      end
+
+      def rollback(item)
+        @client.rpush(@listname, item)
+      end
+
+      def commit(item)
+        @client.lrem(progress_listname, 0, item)
+      end
+    end
+
+    class RedisTransactionalQueue < RedisRPOPLPUSH
+      method :rpoplpush
     end
 
     class RedisLPOP < RedisListOP
@@ -35,29 +65,5 @@ module ZQ
       method :rpop
     end
 
-    class RedisRPOPLPUSH < RedisListOP
-      include TransactionalMixin
-      method :rpoplpush
-      def args
-        [@listname, progress_list]
-      end
-
-      def progress_list
-        @listname + '_progress'
-      end
-
-      def rollback(item)
-        @client.rpush(@listname, item)
-      end
-
-      def commit(item)
-        @client.lrem(progress_list, 0, item)
-      end
-
-    end
-
-    class RedisTransactionalQueue < RedisRPOPLPUSH
-      method :rpoplpush
-    end
   end
 end
