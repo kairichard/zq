@@ -86,4 +86,3 @@ changes.
 
 ##TODO
   * add more sources and composers
-  * transactional composing
