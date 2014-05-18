@@ -10,6 +10,6 @@ begin
 rescue NoOrchestrasFound
   abort 'No Orchestras found'
 rescue Interrupt
-  puts
+  puts 'Ok, bye'
   exit 130
 end
