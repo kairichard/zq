@@ -1,6 +1,7 @@
 ZQ - Unixy building blocks in ruby
 ========
 [![Build Status](https://travis-ci.org/kairichard/zq.png?branch=master)](https://travis-ci.org/kairichard/zq) [![Gem Version](https://badge.fury.io/rb/zq.png)](https://badge.fury.io/rb/zq) [![Dependency Status](https://gemnasium.com/kairichard/zq.svg)](https://gemnasium.com/kairichard/zq) [![Coverage Status](https://coveralls.io/repos/kairichard/zq/badge.png?branch=master)](https://coveralls.io/r/kairichard/zq?branch=master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkairichard%2Fzq.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkairichard%2Fzq?ref=badge_shield)
 
 
 This started as a simple proof of concept and looked kinda promising.
@@ -87,3 +88,7 @@ changes.
 ##TODO
   * add more sources and composers
   * better error handling for transactions
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkairichard%2Fzq.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkairichard%2Fzq?ref=badge_large)
